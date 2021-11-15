@@ -22,6 +22,20 @@ class Student:
 Курсы в процессе обучения: {", ".join(self.courses_in_progress)}\nЗаконченные курсы: \
 {", ".join(self.finished_courses)}'
 
+    def __eq__(self, other):
+        return medium_grade(self.grades) == medium_grade(other.grades)
+    def __ne__(self, other):
+        return medium_grade(self.grades) != medium_grade(other.grades)
+    def __lt__(self, other):
+        return medium_grade(self.grades) < medium_grade(other.grades)
+    def __gt__(self, other):
+        return medium_grade(self.grades) > medium_grade(other.grades)
+    def __eq__(self, other):
+        return medium_grade(self.grades) == medium_grade(other.grades)
+    def __le__(self, other):
+        return medium_grade(self.grades) <= medium_grade(other.grades)
+    def __ge__(self, other):
+        return medium_grade(self.grades) >= medium_grade(other.grades)
 
 class Mentor:
     def __init__(self, name, surname):
@@ -38,6 +52,21 @@ class Lecture(Mentor):
 
     def __str__(self):
         return f'Имя: {self.name}\nФмилия: {self.surname}\nСредняя оценка лекции: {medium_grade(self.grades)}'
+
+    def __eq__(self, other):
+        return medium_grade(self.grades) == medium_grade(other.grades)
+    def __ne__(self, other):
+        return medium_grade(self.grades) != medium_grade(other.grades)
+    def __lt__(self, other):
+        return medium_grade(self.grades) < medium_grade(other.grades)
+    def __gt__(self, other):
+        return medium_grade(self.grades) > medium_grade(other.grades)
+    def __eq__(self, other):
+        return medium_grade(self.grades) == medium_grade(other.grades)
+    def __le__(self, other):
+        return medium_grade(self.grades) <= medium_grade(other.grades)
+    def __ge__(self, other):
+        return medium_grade(self.grades) >= medium_grade(other.grades)
 
 
 class Reviewer(Mentor):
@@ -137,3 +166,6 @@ print(first_student, '\n', '\n')
 print(second_reviewer, '\n')
 print(second_lecture, '\n')
 print(second_student, '\n', '\n')
+
+print(first_student >= second_student)
+print(first_lecture >= second_lecture)
