@@ -1,4 +1,6 @@
+
 class Student:
+
     def __init__(self, name, surname, gender):
         self.name = name
         self.surname = surname
@@ -7,6 +9,7 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
         self.courses_attached = []
+
 
     def rate_lec(self, lecture, course, grade):
         if isinstance(lecture, Lecture) and course in lecture.courses_attached and course in self.courses_in_progress:
@@ -18,24 +21,28 @@ class Student:
             return 'Ошибка'
 
     def __str__(self):
-        return f'Имя: {self.name}\nФмилия: {self.surname}\nСредняя оценка за ДЗ: {medium_grade(self.grades)}\n\
-Курсы в процессе обучения: {", ".join(self.courses_in_progress)}\nЗаконченные курсы: \
+        return f'Имя: {self.name}\nФмилия: {self.surname}\nПол: {self.gender}\nСредняя оценка за ДЗ: \
+{medium_grade(self.grades)}\nКурсы в процессе обучения: {", ".join(self.courses_in_progress)}\nЗаконченные курсы: \
 {", ".join(self.finished_courses)}'
 
     def __eq__(self, other):
         return medium_grade(self.grades) == medium_grade(other.grades)
+
     def __ne__(self, other):
         return medium_grade(self.grades) != medium_grade(other.grades)
+
     def __lt__(self, other):
         return medium_grade(self.grades) < medium_grade(other.grades)
+
     def __gt__(self, other):
         return medium_grade(self.grades) > medium_grade(other.grades)
-    def __eq__(self, other):
-        return medium_grade(self.grades) == medium_grade(other.grades)
+
     def __le__(self, other):
         return medium_grade(self.grades) <= medium_grade(other.grades)
+
     def __ge__(self, other):
         return medium_grade(self.grades) >= medium_grade(other.grades)
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -55,16 +62,19 @@ class Lecture(Mentor):
 
     def __eq__(self, other):
         return medium_grade(self.grades) == medium_grade(other.grades)
+
     def __ne__(self, other):
         return medium_grade(self.grades) != medium_grade(other.grades)
+
     def __lt__(self, other):
         return medium_grade(self.grades) < medium_grade(other.grades)
+
     def __gt__(self, other):
         return medium_grade(self.grades) > medium_grade(other.grades)
-    def __eq__(self, other):
-        return medium_grade(self.grades) == medium_grade(other.grades)
+
     def __le__(self, other):
         return medium_grade(self.grades) <= medium_grade(other.grades)
+
     def __ge__(self, other):
         return medium_grade(self.grades) >= medium_grade(other.grades)
 
@@ -86,6 +96,7 @@ class Reviewer(Mentor):
     def __str__(self):
         return f'Имя: {self.name}\nФмилия: {self.surname}'
 
+
 def medium_grade(grades):
     total = 0
     count = 0
@@ -94,17 +105,30 @@ def medium_grade(grades):
         count += len(grade)
     return total / count
 
-first_student = Student('Ruoy', 'Eman', 'men')
+def m_c_g(list_, courses):
+     total = 0
+     count = 0
+     for obj in list_:
+           for course, grade in obj.grades.items():
+                if course == courses:
+                    total += sum(grade)
+                    count += len(grade)
+     return round(total / count, 2)
+
+
+
+
+first_student = Student('Steve', 'Rogers', 'man')
 first_student.courses_in_progress += ['Python', 'git']
 
-first_reviewer = Reviewer('Some', 'Buddy')
+first_reviewer = Reviewer('Shaldon', 'Cooper')
 first_reviewer.courses_attached += ['Python']
 first_reviewer.courses_attached += ['git']
 
-first_reviewer.rate_hw(first_student, 'Python', 5)
-first_reviewer.rate_hw(first_student, 'Python', 6)
-first_reviewer.rate_hw(first_student, 'Python', 7)
-first_reviewer.rate_hw(first_student, 'git', 8)
+first_reviewer.rate_hw(first_student, 'Python', 10)
+first_reviewer.rate_hw(first_student, 'Python', 9)
+first_reviewer.rate_hw(first_student, 'Python', 8)
+first_reviewer.rate_hw(first_student, 'git', 9)
 first_reviewer.rate_hw(first_student, 'git', 9)
 
 # print(first_student.grades)
@@ -116,17 +140,15 @@ first_lecture.courses_attached += ['Python', 'git']
 
 first_student.rate_lec(first_lecture, 'Python', 10)
 first_student.rate_lec(first_lecture, 'Python', 9)
-first_student.rate_lec(first_lecture, 'Python', 7)
-first_student.rate_lec(first_lecture, 'git', 10)
+first_student.rate_lec(first_lecture, 'Python', 8)
+first_student.rate_lec(first_lecture, 'git', 9)
 # print(first_lecture.grades)
 
 
-
-
-
-second_student = Student('Johnny', 'Lochanta', 'men')
+second_student = Student('Johnny', 'Lochanta', 'man')
 second_student.courses_in_progress += ['Python', 'git', 'django']
 second_student.finished_courses += ['soft skills']
+
 
 second_reviewer = Reviewer('Tom', 'Cruise')
 second_reviewer.courses_attached += ['Python']
@@ -136,16 +158,15 @@ second_reviewer.courses_attached += ['django']
 second_reviewer.rate_hw(second_student, 'Python', 5)
 second_reviewer.rate_hw(second_student, 'Python', 6)
 second_reviewer.rate_hw(second_student, 'Python', 7)
-second_reviewer.rate_hw(second_student, 'git', 8)
-second_reviewer.rate_hw(second_student, 'git', 9)
 second_reviewer.rate_hw(second_student, 'git', 10)
-
+second_reviewer.rate_hw(second_student, 'git', 10)
+second_reviewer.rate_hw(second_student, 'git', 10)
 # print(second_student.grades)
 
 second_lecture = Lecture('Antony', 'Stark')
 second_lecture.courses_attached += ['Python', 'git', 'django']
 
-print(second_lecture.courses_attached)
+# print(second_lecture.courses_attached)
 
 second_student.rate_lec(second_lecture, 'Python', 7)
 second_student.rate_lec(second_lecture, 'Python', 6)
@@ -157,7 +178,7 @@ first_student.rate_lec(second_lecture, 'Python', 8)
 first_student.rate_lec(second_lecture, 'Python', 9)
 first_student.rate_lec(second_lecture, 'Python', 8)
 first_student.rate_lec(second_lecture, 'git', 7)
-print(second_lecture.grades)
+# print(second_lecture.grades)
 
 print(first_reviewer, '\n')
 print(first_lecture, '\n')
@@ -167,5 +188,11 @@ print(second_reviewer, '\n')
 print(second_lecture, '\n')
 print(second_student, '\n', '\n')
 
+students_list = [first_student, second_student]
+lecture_list = [first_lecture, second_lecture]
+print(f'Средняя оценка студентов за дз по курсу Python: {m_c_g(students_list, "Python")}')
+print(f"Средняя оценка лекторов за лекцию по курсу Git: {m_c_g(lecture_list, 'git')}\n\n")
+
 print(first_student >= second_student)
 print(first_lecture >= second_lecture)
+
